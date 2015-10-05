@@ -65,7 +65,7 @@
     	function inbox() {
     		$this->msg_cnt = imap_num_msg($this->conn);
             	echo "Number of emails read = ".$this->msg_cnt."\n";
-            }
+        
     		
 		/*$in = array();
     		for($i = 1; $i <= $this->msg_cnt; $i++) {
@@ -78,15 +78,15 @@
 
 	
 
-        //private $output = '<table>';
+        $output = '<table>';
 
         $output.='<tr><th>Subject</th><th>voucher</th><th>From</th><th>seen</th><th>type</th></tr>';
 
-        $mails[$i] = imap_search($this->conn, 'FROM "hotelpartners@goibibo.com" SUBJECT "Confirm Hotel Booking"');
+        $mails = imap_search($this->conn, 'FROM "hotelpartners@goibibo.com" SUBJECT "Confirm Hotel Booking"');
 
         //print_r($mails);
 
-        /*for($i=0; $i<=sizeof(this->inbox);$i++){
+        for($i=0; $i<=sizeof($mails);$i++){
             
             $header = imap_fetch_overview($this->conn, $mails[$i], 0);
             $body = imap_fetchbody($this->conn,$mails[$i],1.1);
@@ -102,9 +102,8 @@
             $output.= '<td><span class="type">'.$structure->type.'</span> </td>';
             $output.='</tr>';
             
-        }*/
-
-;	 	for($i=1; $i<=$this->msg_cnt;$i++){
+        }
+	 	/*for($i=1; $i<=$this->msg_cnt;$i++){
 			
 			$header = imap_fetch_overview($this->conn, $i, 0);
             $body = imap_fetchbody($this->conn,$mails[$i],1.1);
@@ -119,7 +118,7 @@
                 $output.= '<td><span class="toggler '.($header[0]->seen ? 'read' : 'unread').'"></span></td>';
                 $output.='</tr>';
             }
-		}
+		}*/
 
         $output.='</table>';
 		echo $output."\n";		
