@@ -7,7 +7,7 @@
 		$doc->loadHTML($html);
 		$xpath = new DOMXPath($doc);
 		$tables = $doc->getElementsByTagName('table');
-		$nodes  = $xpath->query('.//tbody/tr/td/table/tbody/tr/td/table/tbody/tr/td[2]', $tables->item(0));
+		$nodes  = $xpath->query('.//tbody/tr/td', $tables->item(0));
 		//print_r($nodes);
 		//var_dump($nodes->item(0)->nodeValue.trim());
 		$voucherString = ''.$nodes->item(0)->nodeValue;
@@ -17,8 +17,8 @@
 		
 	}
 		
-		libxml_use_internal_errors(false);
-	$link = "output.html";
+		/*libxml_use_internal_errors(false);
+	$link = "sample.html";
 	$html = file_get_contents($link);
-	extractDataFromHtml($html);
+	extractDataFromHtml($html); */
 ?>

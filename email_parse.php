@@ -1,4 +1,9 @@
-<?php
+ 
+
+ <?php
+
+ include "ExtractEmailData.php" ;
+
 $hostname = '{imap.gmail.com:993/imap/ssl}INBOX';
 $username = 'vistaramrooms@gmail.com';
 $password = 'vistaram@66669';
@@ -10,17 +15,28 @@ $inbox = imap_open($hostname,$username,$password) or die('Cannot connect to Gmai
 $emails = imap_search($inbox,'FROM "hotelpartners@goibibo.com" SUBJECT "Confirm Hotel Booking" ');
  
 if($emails) {
+	
+	//'<th>'"booking no."'</th>'
    foreach($emails as $email_number) {
     $message = imap_fetchbody($inbox,$email_number,1.1);
-    if ($message == "") { // no attachments is the usual cause of this
+    if ($message == "") { // no attachments is the usual cause o this
         $message = imap_fetchbody($inbox, $email_number, 1);
+        extractDataFromHtml($message);
+        echo " \n";
+        echo " \n";
+        echo " \n";
+        echo " \n";
+        echo " \n";
+
     }
-   print '<div>'; 
+   //print '<div>'; 
 
-    print_r($message);
-
- 	print '</div>';
- 	break;
+    //print($message);
+  
+       //'<td>' $x = $message.getElementsByTagName("u")[0].getAttribute("Booking ID/Voucher No")'</td>'; 
+	
+ 	//print '</div>';
+ 	
    }// end foreach loop
 } // end if($emails)
 ?>
