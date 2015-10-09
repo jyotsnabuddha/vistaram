@@ -7,17 +7,28 @@
 		$doc->loadHTML($html);
 		$xpath = new DOMXPath($doc);
 		$tables = $doc->getElementsByTagName('table');
-		$nodes  = $xpath->query('.//tbody/tr/td', $tables)->$item[0];
-
-		$voucherString = ''.$nodes->$item[0]->nodeValue;
+		$nodes  = $xpath->query('.//tbody/tr/td', $tables->item(0));
+		$voucherString = ''.$nodes->item(0)->nodeValue;
 		$voucherString = trim($voucherString);
 		$voucherNumber = substr($voucherString, strpos($voucherString, ":")+1);
 		print('Voucher Number is '.$voucherNumber."\n");
 		//return new VoucherDetails($voucherNumber);
 
+	
+	/*$xpath2 = new DOMXPath($doc);
+	
+	$body = $doc->getElementsByTagName('body');
 
-	/*$nodes  = $xpath->query('.//table[2]/tbody[1]/tr/td/table/tbody/table/tr[2]/td[2]', $tables)->$item[1];
-	$nameString = ''.$nodes->$item[1]->nodeValue;
+	$tdNodes = $xpath2->query('.//td', $body->item(0));
+
+	foreach($tdNodes as $tdNode){
+		$text = trim($tdNode->nodeValue);
+	
+		echo "\n\n".$text."\n\n\n";
+
+	}
+	
+	$nameString = ''.$nodes->item(0)->nodeValue;
 	$nameString = trim($nameString);
 	$guestName = substr($nameString , strpos($nameString , ":")+1);
 	print('Guest name is : '.$guestName."\n");
@@ -41,6 +52,7 @@
 	$checkoutDate = substr($checkoutstring , strpos($checkoutString,":"));
 	print('Checkout date is '.$checkoutDate."\n"); */
 
+		return new VoucherDetails($voucherNumber);
 	}
 		
 
