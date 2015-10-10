@@ -67,7 +67,7 @@
 
 
 		
-		//Extract Summary
+		//Extract Summary , not required as of now i guess 
 		
 		var_dump($details);
 		return new VoucherDetails($voucherNumber,  $details["name of guest"] , $details["booking date"] , $details["checkin date"] ,$details["checkout date"] , $bank["Account No."] , $bank["IFSC No."],$tariff["#nights"],$tariff["rate per room"], $tariff["room rate"]);
