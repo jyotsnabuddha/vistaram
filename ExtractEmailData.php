@@ -24,22 +24,53 @@
 			$nodes = $xpath->query('//body/table[3]/*/*/td/table/tbody/tr/td/table/tr['.$i.']/td[1]', $doc);
 			if($nodes->length == 0) break;
 			$key = trim($nodes->item(0)->nodeValue);
-			echo  "\n\nkey : ".$key."\n\n";
+			//echo  "\n\nkey : ".$key."\n\n";
 			$nodes = $xpath->query('//body/table[3]/*/*/td/table/tbody/tr/td/table/tr['.$i.']/td[2]', $doc);
 			$value= trim($nodes->item(0)->nodeValue);
-			echo  "\n\nvalue : ".$value."\n\n";
+			//echo  "\n\nvalue : ".$value."\n\n";
 			$details[$key] = $value;
 			$i++;
 		} 
 
 		//Extract Bank payment details
+		$j= 1;
+		$bank = array();
+		while(true){
+
+		$nodes=$xpath->query('//body/table[5]/*/*/*/table/*/*/*/table/tr['.$j.']/td[1]', $doc);
+		if($nodes->length == 0) break;
+		$key = trim($nodes->item(0)->nodeValue);
+
+		$nodes=$xpath->query('//body/table[5]/*/*/*/table/*/*/*/table/tr['.$j.']/td[2]', $doc);
+		$value= trim($nodes->item(0)->nodeValue);
+		$bank[$key]=$value;
+		$j++;
+
+	}
 
 		//Extract Tariff Applicable
+		
+		$k= 2;
+		$tariff = array();
+		while(true){
+			$nodes=$xpath->query('//body/table[7]/*/*/*/table/tbody/*/*/table/thead/tr/td['.$k.']',$doc);
+			if($nodes->length == 0) break;
+			$key = trim($nodes->item(0)->nodeValue);
 
+			$nodes=$xpath->query('//body/table[7]/*/*/*/table/tbody/*/*/table/tbody/tr/td['.$k.']',$doc);
+			$value = trim($nodes->item(0)->nodeValue);
+			$tariff[$key]= $value;
+			$k++;
+
+
+		}
+
+
+		
 		//Extract Summary
 		
 		var_dump($details);
-		return new VoucherDetails($voucherNumber,  $details["name of guest"]);
+		return new VoucherDetails($voucherNumber,  $details["name of guest"] , $details["booking date"] , $details["checkin date"] ,$details["checkout date"] , $bank["Account No."] , $bank["IFSC No."],$tariff["#nights"],$tariff["rate per room"], $tariff["room rate"]);
 	}
 		
 
