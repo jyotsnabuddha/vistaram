@@ -1,5 +1,5 @@
     <?php
-    
+    require_once('Utility.php');
      
     class Email_reader {
      
@@ -13,8 +13,8 @@
     	// email login credentials
      	
         private $host   =  "imap.gmail.com";
-    	private $user   = 'vistaramrooms@gmail.com';
-    	private $pass   = 'vistaram@66669';
+    	private $user   = 'TmQ1NnFlZGRuSndGWmEzbGJCMzBrL29sSlJ0VEtvWVZ2N0MyYUhuMUg1TT0=';
+    	private $pass   = 'd3lnWFhkbXEzT0RFOVJTS2R3cm90dz09';
     	private $port   = '993'; 
         
 	// connect to the server and get the inbox emails
@@ -36,7 +36,7 @@
     	// these are laid out to connect to a Dreamhost IMAP server
     	function connect() {
     		
-		$this->conn = imap_open('{'.$this->host.':'.$this->port.'/imap/ssl}', $this->user, $this->pass);
+		$this->conn = imap_open('{'.$this->host.':'.$this->port.'/imap/ssl}', Utility::encrypt_decrypt('decrypt', $this->user),  Utility::encrypt_decrypt('decrypt', $this->pass));
     	}
      
     	// move the message to a new folder
@@ -103,23 +103,6 @@
             $output.='</tr>';
             
         }
-	 	/*for($i=1; $i<=$this->msg_cnt;$i++){
-			
-			$header = imap_fetch_overview($this->conn, $i, 0);
-            $body = imap_fetchbody($this->conn,$mails[$i],1.1);
-            
-            if ($header[0]->from=="hotelpartners@goibibo.com")
-            {
-                $output.='<tr>';
-            
-    			$output.= '<td><span class="subject">'.$header[0]->subject.'</span> </td>';
-    			$output.= '<td><span class="from">'.$header[0]->from.'</span></td>';
-    			$output.= '<td><span class="date"> '.$header[0]->date.'</span></td>';
-                $output.= '<td><span class="toggler '.($header[0]->seen ? 'read' : 'unread').'"></span></td>';
-                $output.='</tr>';
-            }
-		}*/
-
         $output.='</table>';
 		echo $output."\n";		
 
